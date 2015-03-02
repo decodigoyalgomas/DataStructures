@@ -32,4 +32,54 @@ def revstring(word):
         reverse += s.pop()
     return reverse
 
-    
+
+def parenthesisParser(symbolString):
+    """parses a string and tries to see it open and closed parenthesis correspond to eachother"""
+    s = Stack()
+    correspond = True
+    index = 0
+    while index < len(symbolString) and correspond:
+        symbol = symbolString[index]
+        if symbol == "(":
+            s.push(symbol)
+        else:
+            if s.isEmpty():
+                correspond = False
+            else:
+                s.pop()
+        index += 1
+    if correspond and s.isEmpty():
+        return True
+    else:
+        return False
+
+def matches(open, close):
+    """ Returns true if the open and close params correspond to their symbols '([{' opening and closing repreentations"""
+    opens = "[{("
+    closers = "]})"
+    return opens.index(open) == closers.index(close) 
+
+
+def symbolParser(symbolString):
+    """ parses a string to see if the '(,[,{' symbols match their closing parts """
+
+    s = Stack()
+    correspond = True
+    index = 0
+    while index < len(symbolString) and correspond:
+        symbol = symbolString[index]
+        if symbol in "([{":
+            s.push(symbol)
+        else:
+            if s.isEmpty():
+                correspond = False
+            else:
+                top = s.pop()
+                if not matches(top, symbol):
+                    correspond = False
+        index += 1
+    if correspond and s.isEmpty():
+        return True
+    else:
+        return False
+
