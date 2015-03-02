@@ -19,3 +19,17 @@ class Stack:
 
     def size(self):
         return len(self.items)
+
+
+
+def revstring(word):
+    """return a reversed string using Stack"""
+    s = Stack()
+    for letter in word:
+        s.push(letter)
+    reverse = ""
+    while not s.isEmpty():
+        reverse += s.pop()
+    return reverse
+
+    
